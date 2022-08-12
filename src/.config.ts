@@ -31,7 +31,7 @@ export const kanbanData = [
 export const kanbanDataProjects = [
     {
         id: 1,
-        projectName: "Admin dashboard",
+        projectName: "admin-dashboard",
         boards: [
             {
                 id: 1,
@@ -64,7 +64,7 @@ export const kanbanDataProjects = [
     },
     {
         id: 2,
-        projectName: "Pizza Site",
+        projectName: "pizza-site",
         boards: [
             {
                 id: 1,
