@@ -2,15 +2,7 @@ import React, { DragEvent, FC, useRef } from "react";
 import { kanbanData } from "../../.config";
 import { IBoard, ITask } from "../../types";
 import Task from "../Task/Task";
-
-interface BoardProps {
-    board: IBoard;
-    setKanban: (kanban: IBoard[]) => void;
-    currentTask: ITask | null;
-    setCurrentTask: (task: ITask) => void;
-    currentBoard: IBoard | null;
-    setCurrentBoard: (board: IBoard) => void;
-}
+import { BoardProps } from "./Board.props";
 
 const Board: FC<BoardProps> = ({
     board,

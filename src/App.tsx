@@ -1,10 +1,12 @@
-import Boards from "./components/Boards/Boards";
+// import Boards from "./components/Boards/Boards";
+import Nav from "./components/Nav/Nav";
 
 const App = () => {
     return (
-        <div className="App">
-            <nav className="nav"></nav>
-            <Boards />
+        <div>
+            <Nav />
+
+            {/* <Boards /> */}
         </div>
     );
 };

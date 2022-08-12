@@ -8,3 +8,9 @@ export interface IBoard {
     title: string;
     tasks: ITask[];
 }
+
+export interface IProject {
+    id: number;
+    projectName: string;
+    boards: IBoard[];
+}
