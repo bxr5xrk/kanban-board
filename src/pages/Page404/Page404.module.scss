@@ -1,0 +1,35 @@
+.notFound {
+    text-align: center;
+    display: flex;
+    min-height: 100%;
+    flex-direction: column;
+    justify-content: center;
+  
+    h1 {
+        font-size: 150px;
+    }
+
+    h2 {
+        font-size: 40px;
+    }
+
+    a {
+        margin-top: 30px;
+        font-size: 20px;
+        color: var(--orange);
+    }
+
+    @media (max-width: 636px) {
+        h1 {
+            font-size: 100px;
+        }
+
+        h2 {
+            font-size: 25px;
+        }
+
+        a {
+            font-size: 20px;
+        }
+    }
+  }

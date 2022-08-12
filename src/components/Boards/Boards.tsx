@@ -14,7 +14,10 @@ const Boards: FC<BoardsProps> = ({ selectedProject }) => {
 
     return (
         <main className="kanban">
-            <h1>{selectedProject.projectName}</h1>
+            <h1>
+                {selectedProject.projectName[0].toUpperCase() +
+                    selectedProject.projectName.slice(1).replace("-", " ")}
+            </h1>
 
             <div className="boards">
                 {selectedProject.boards.map((board) => (

@@ -1,13 +1,13 @@
-// import Boards from "./components/Boards/Boards";
-import Nav from "./components/Nav/Nav";
+import { Route, Routes } from "react-router-dom";
+import { routes } from "./routes";
 
 const App = () => {
     return (
-        <div>
-            <Nav />
-
-            {/* <Boards /> */}
-        </div>
+        <Routes>
+            {routes.map((i) => (
+                <Route key={i.path} path={i.path} element={i.element} />
+            ))}
+        </Routes>
     );
 };
 
