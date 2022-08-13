@@ -1,34 +1,47 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { kanbanDataProjects } from "../../.config";
+import { fetchKanbanData } from "../../api/KanbanService";
+import { useFormat } from "../../hooks/useFormat";
+import {
+    selectKanban,
+    setSelectedProject,
+} from "../../store/slices/kanbanSlice";
+import { useAppDispatch } from "../../store/store";
 import { IProject } from "../../types";
 import Boards from "../Boards/Boards";
 
 const Nav = () => {
-    const [kanban] = useState<IProject[]>(kanbanDataProjects);
     const { projectParams } = useParams<string>();
-    const findItem = kanban.find((i) => i.projectName === projectParams);
-    const [selectedProject, setSelectedProject] = useState<IProject>(findItem!);
+    const { selectedProject, kanbanData } = useSelector(selectKanban);
     const navigate = useNavigate();
-
-    const onClickSelectProject = (i: IProject, path: string) => {
-        if (i !== selectedProject) {
-            setSelectedProject(i);
-            navigate("../kanban/project=" + path);
-        }
-    };
+    const dispatch = useAppDispatch();
+    const title = useFormat(
+        selectedProject !== null ? selectedProject.projectName : "",
+        "title"
+    );
 
     useEffect(() => {
-        if (findItem !== undefined) {
-            document.title =
-                "Проєкт " +
-                selectedProject.projectName[0].toUpperCase() +
-                selectedProject.projectName.slice(1).replace("-", " ");
+        const findItem = kanbanData.find(
+            (i) => i.projectName === projectParams
+        );
+        if (kanbanData.length === 0) {
+            dispatch(fetchKanbanData({ id: 0 }));
         }
+
+        if (findItem !== undefined) {
+            document.title = "Проєкт " + title;
+
+            dispatch(setSelectedProject(findItem));
+        }
+        console.log(findItem, "-findItem");
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectParams]);
 
-    if (findItem === undefined) {
+    console.log(kanbanData, selectedProject, projectParams);
+
+    if (selectedProject === null) {
         return (
             <div>
                 <h1>Такого проєкту не існує</h1>
@@ -37,10 +50,17 @@ const Nav = () => {
         );
     }
 
+    const onClickSelectProject = (i: IProject, path: string) => {
+        if (i !== selectedProject) {
+            dispatch(setSelectedProject(i));
+            navigate("../kanban/project=" + path);
+        }
+    };
+
     return (
         <>
             <nav className="nav">
-                {kanban.map((i) => (
+                {kanbanData.map((i) => (
                     <button
                         onClick={() => onClickSelectProject(i, i.projectName)}
                         key={i.id}
@@ -49,9 +69,9 @@ const Nav = () => {
                     </button>
                 ))}
             </nav>
-            <main>
-                <Boards selectedProject={selectedProject} />
-            </main>
+
+            <Boards selectedProject={selectedProject} />
+
             <button onClick={() => navigate("/")}>на головну</button>
         </>
     );
