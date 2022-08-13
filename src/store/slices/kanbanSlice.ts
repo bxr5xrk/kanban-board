@@ -6,13 +6,13 @@ import { fetchKanbanData } from "../../api/KanbanService";
 interface kanbanSliceState {
     kanbanData: IProject[];
     status: "loading" | "success" | "rejected";
-    selectedProject: IProject | null;
+    currentProject: IProject | null;
 }
 
 const initialState: kanbanSliceState = {
     kanbanData: [],
     status: "loading",
-    selectedProject: null,
+    currentProject: null,
 };
 
 const kanbanSlice = createSlice({
@@ -22,8 +22,8 @@ const kanbanSlice = createSlice({
         setKanbanData(state, action: PayloadAction<IProject[]>) {
             state.kanbanData = action.payload;
         },
-        setSelectedProject(state, action: PayloadAction<IProject>) {
-            state.selectedProject = action.payload;
+        setCurrentProject(state, action: PayloadAction<IProject>) {
+            state.currentProject = action.payload;
         },
     },
     extraReducers: (builder) => {
@@ -47,6 +47,6 @@ const kanbanSlice = createSlice({
 
 export const selectKanban = (state: RootState) => state.kanban;
 
-export const { setKanbanData, setSelectedProject } = kanbanSlice.actions;
+export const { setKanbanData, setCurrentProject } = kanbanSlice.actions;
 
 export default kanbanSlice.reducer;
