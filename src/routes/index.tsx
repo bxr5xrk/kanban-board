@@ -5,7 +5,7 @@ import Page404 from "../pages/Page404/Page404";
 
 export const routes = [
     { path: "/", element: <HomePage /> },
-    { path: "kanban/:projectParams", element: <Nav /> },
+    { path: "kanban/project=:projectParams", element: <Nav /> },
     { path: "*", element: <Page404 /> },
     { path: "kanban", element: <Navigate to="/" replace /> },
 ];

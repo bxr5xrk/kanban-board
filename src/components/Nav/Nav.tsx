@@ -14,7 +14,7 @@ const Nav = () => {
     const onClickSelectProject = (i: IProject, path: string) => {
         if (i !== selectedProject) {
             setSelectedProject(i);
-            navigate("../kanban/" + path);
+            navigate("../kanban/project=" + path);
         }
     };
 
@@ -25,6 +25,7 @@ const Nav = () => {
                 selectedProject.projectName[0].toUpperCase() +
                 selectedProject.projectName.slice(1).replace("-", " ");
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [projectParams]);
 
     if (findItem === undefined) {
@@ -51,6 +52,7 @@ const Nav = () => {
             <main>
                 <Boards selectedProject={selectedProject} />
             </main>
+            <button onClick={() => navigate("/")}>на головну</button>
         </>
     );
 };
