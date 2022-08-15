@@ -1,8 +1,9 @@
 import axios from "axios";
-import { FC, KeyboardEvent, useState } from "react";
+import { FC, KeyboardEvent, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { KANBAN_API } from "../../.config";
+import { fetchKanbanData } from "../../api/KanbanService";
 import {
     selectKanban,
     setCurrentProject,
@@ -44,13 +45,6 @@ const NavTmp: FC = () => {
     const [showInput, setShowInput] = useState(false);
     const [value, setValue] = useState("");
 
-    const onClickSelectProject = (i: IProject, path: string) => {
-        if (i !== currentProject) {
-            dispatch(setCurrentProject(i));
-            navigate("../kanban/project=" + path);
-        }
-    };
-
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
             console.log(value);
@@ -59,6 +53,15 @@ const NavTmp: FC = () => {
             fetchNewProject(value);
         }
     };
+
+    const onClickSelectProject = (i: IProject, path: string) => {
+        if (i !== currentProject) {
+            dispatch(setCurrentProject(i));
+            navigate("../kanban/project=" + path);
+        }
+    };
+
+    console.log(currentProject);
 
     return (
         <>
